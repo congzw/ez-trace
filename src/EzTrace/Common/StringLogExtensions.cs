@@ -1,38 +1,40 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace EzTrace.Common
 {
-    public static class ConsoleStringExtensions
+    public static class StringLogExtensions
     {
+        public static Action<string> ShowFunc = message => Trace.WriteLine(message);
         public static void WriteLine(this string output, int tabCount = 0)
         {
-            AppendTab(tabCount);
+            var appendTab = AppendTab(tabCount);
             if (string.IsNullOrWhiteSpace(output))
             {
-                Console.WriteLine("");
+                ShowFunc("");
                 return;
             }
-            Console.WriteLine(output);
+            ShowFunc(appendTab + output);
         }
         public static void WriteLineFormat(this string format, int tabCount = 0, params object[] arg)
         {
-            AppendTab(tabCount);
+            var appendTab = AppendTab(tabCount);
             if (string.IsNullOrWhiteSpace(format))
             {
-                Console.WriteLine("");
+                ShowFunc("");
                 return;
             }
-            Console.WriteLine(format, arg);
+            ShowFunc(appendTab + string.Format(format, arg));
         }
-
-        private static void AppendTab(int tabCount)
+        private static string AppendTab(int tabCount)
         {
             var pushValue = "";
             for (int i = 0; i < tabCount; i++)
             {
                 pushValue += "\t";
             }
-            Console.Write("{0}", pushValue);
+
+            return pushValue;
         }
     }
 }

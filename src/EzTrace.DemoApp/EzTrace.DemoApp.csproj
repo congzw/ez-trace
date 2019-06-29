@@ -4,17 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6E5B7CEE-0AD9-4D6E-9CA6-B0AE75972557}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EzTrace</RootNamespace>
-    <AssemblyName>EzTrace</AssemblyName>
+    <ProjectGuid>{4583FF97-0602-4B0C-BEFA-08E6C860A6FC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EzTrace.DemoApp</RootNamespace>
+    <AssemblyName>EzTrace.DemoApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -57,7 +58,7 @@
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenTracing, Version=0.12.0.0, Culture=neutral, PublicKeyToken=61503406977abdaf, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTracing.0.12.0\lib\net45\OpenTracing.dll</HintPath>
@@ -82,33 +83,55 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AppDomainExtensions.cs" />
-    <Compile Include="Common\JsonFileHelper.cs" />
-    <Compile Include="Common\JsonExtensions.cs" />
-    <Compile Include="Common\StringLogExtensions.cs" />
-    <Compile Include="Helpers\MyFactory.cs" />
-    <Compile Include="Helpers\MyLoggerFactory.cs" />
-    <Compile Include="Helpers\MyLogHelper.cs" />
-    <Compile Include="Helpers\TraceDataHelper.cs" />
-    <Compile Include="Jaegers\EnvVarHelper.cs" />
-    <Compile Include="Jaegers\JaegerEnv.cs" />
-    <Compile Include="Jaegers\JaegerRunner.cs" />
-    <Compile Include="MySpans\MockTracerFactory.cs" />
-    <Compile Include="MySpans\MySpanConvert.cs" />
-    <Compile Include="MySpans\MySpanLoader.cs" />
-    <Compile Include="MySpans\MySpanRecorder.cs" />
-    <Compile Include="MySpans\MySpanReporter.cs" />
-    <Compile Include="MySpans\MySpans.cs" />
-    <Compile Include="MySpans\MySpanStorage.cs" />
+    <Compile Include="Helpers\AsyncForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helpers\AsyncFormEventBus.cs" />
+    <Compile Include="Helpers\DemoHelper.cs" />
+    <Compile Include="Helpers\JaegerFactory.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EzTrace\EzTrace.csproj">
+      <Project>{6e5b7cee-0ad9-4d6e-9ca6-b0ae75972557}</Project>
+      <Name>EzTrace</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,7 @@ namespace EzTrace.Helpers
 {
     public class MyLogHelper
     {
+        public Action<string> ShowMessage { get; set; }
         public bool WithPrefix { get; set; }
         public string Category { get; set; }
         public MyLogHelper(string category)
@@ -19,14 +20,14 @@ namespace EzTrace.Helpers
         {
             var value = WithPrefix ? $"{category}{preFix} => {message}" : $"{message}";
             Trace.WriteLine(value);
-            //AsyncFormEventBus.Raise(new AsyncFormMessageEvent(value));
+            ShowMessage?.Invoke(value);
         }
 
         public void InfoException(Exception ex, string preFix = "[Exception]", string category = null)
         {
             var value = WithPrefix ? $"{category}{preFix} => {ex.Message}" : $"{ex.Message}";
             Trace.WriteLine(value);
-            //AsyncFormEventBus.Raise(new AsyncFormMessageEvent(value));
+            ShowMessage?.Invoke(value);
         }
 
         public void InfoObj(Object obj, string preFix = "[Info][Object]", string category = null)
@@ -35,14 +36,14 @@ namespace EzTrace.Helpers
             LookupProperties(obj, sb);
             var value = WithPrefix ? $"{category}{preFix} => {sb}" : $"{sb}";
             Trace.WriteLine(value);
-            //AsyncFormEventBus.Raise(new AsyncFormMessageEvent(value));
+            ShowMessage?.Invoke(value);
         }
 
         public void InfoEmptyLine()
         {
             var line = "----------------------------------";
             Trace.WriteLine(line);
-            //AsyncFormEventBus.Raise(new AsyncFormMessageEvent(line));
+            ShowMessage?.Invoke(line);
         }
 
 
