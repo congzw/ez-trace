@@ -8,15 +8,22 @@ namespace Micro.Client
     {
         static void Main(string[] args)
         {
+            //using (var loggerFactory = new LoggerFactory().AddConsole())
+            //{
+            //    var helloTo = "John";
+            //    using (var tracer = DemoFactory.Create("micro-client", loggerFactory))
+            //    {
+            //        new DemoClient(tracer, loggerFactory).SayHello(helloTo);
+            //    }
+            //}
+
             using (var loggerFactory = new LoggerFactory().AddConsole())
             {
-                var helloTo = "John";
                 using (var tracer = DemoFactory.Create("micro-client", loggerFactory))
                 {
-                    new DemoClient(tracer, loggerFactory).SayHello(helloTo);
+                    new DemoClientAsync(tracer, loggerFactory).CreateTraces();
                 }
             }
-
             Console.Read();
         }
     }
