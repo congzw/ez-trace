@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace TraceServer.Domain.Traces
 {
@@ -17,6 +18,8 @@ namespace TraceServer.Domain.Traces
 
     public class MockClientTracer : IClientTracer
     {
+        private readonly AsyncLock _asyncLock = new AsyncLock();
+
         public MockClientTracer(string traceId)
         {
             TraceId = traceId;
@@ -27,22 +30,27 @@ namespace TraceServer.Domain.Traces
 
         public string TraceId { get; set; }
 
-        public Task<ClientSpan> StartSpan(StartSpanArgs args)
+        public async Task<ClientSpan> StartSpan(StartSpanArgs args)
         {
-            //todo with jaeger tracer, get an span id
-            var clientSpan = ClientSpan.Create(args.TraceId, args.ParentSpanId, Guid.NewGuid().ToString());
-            ClientSpans.Add(clientSpan.SpanId, clientSpan);
-            return Task.FromResult(clientSpan);
+            using (await _asyncLock.LockAsync())
+            {
+                var clientSpan = ClientSpan.Create(args.TraceId, args.ParentSpanId, Guid.NewGuid().ToString());
+                ClientSpans.Add(clientSpan.SpanId, clientSpan);
+                return await Task.FromResult(clientSpan);
+            }
         }
 
-        public Task<ClientSpan> GetSpan(IClientSpanLocate args)
+        public async Task<ClientSpan> GetSpan(IClientSpanLocate args)
         {
-            ClientSpan clientSpan = null;
-            if (ClientSpans.ContainsKey(args.SpanId))
+            using (await _asyncLock.LockAsync())
             {
-                clientSpan = ClientSpans[args.SpanId];
+                ClientSpan clientSpan = null;
+                if (ClientSpans.ContainsKey(args.SpanId))
+                {
+                    clientSpan = ClientSpans[args.SpanId];
+                }
+                return await Task.FromResult(clientSpan);
             }
-            return Task.FromResult(clientSpan);
         }
     }
 
