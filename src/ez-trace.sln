@@ -11,16 +11,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzTrace.DemoApp", "EzTrace.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroService", "MicroService", "{3E1A9FB8-4096-4C24-8839-A9A83E437711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Server", "Micro.Server\Micro.Server.csproj", "{1132ED5F-FB12-4F1F-95E6-C17D9169BE1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Server", "Micro.Server\Micro.Server.csproj", "{1132ED5F-FB12-4F1F-95E6-C17D9169BE1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Shared", "Micro.Shared\Micro.Shared.csproj", "{6172FA52-A9A2-4587-B6CF-590DC8BEE687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Shared", "Micro.Shared\Micro.Shared.csproj", "{6172FA52-A9A2-4587-B6CF-590DC8BEE687}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Client", "Micro.Client\Micro.Client.csproj", "{B34D9E45-77D2-49F8-9336-B729BF0A7A24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Client", "Micro.Client\Micro.Client.csproj", "{B34D9E45-77D2-49F8-9336-B729BF0A7A24}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FD7FB4B5-5D37-442E-B5AE-8AC60F65DB18}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraceServer", "TraceServer\TraceServer.csproj", "{AE744E32-F26C-485F-97C2-09AE838EBB7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{B34D9E45-77D2-49F8-9336-B729BF0A7A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B34D9E45-77D2-49F8-9336-B729BF0A7A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B34D9E45-77D2-49F8-9336-B729BF0A7A24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE744E32-F26C-485F-97C2-09AE838EBB7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE744E32-F26C-485F-97C2-09AE838EBB7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE744E32-F26C-485F-97C2-09AE838EBB7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE744E32-F26C-485F-97C2-09AE838EBB7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{1132ED5F-FB12-4F1F-95E6-C17D9169BE1C} = {3E1A9FB8-4096-4C24-8839-A9A83E437711}
 		{6172FA52-A9A2-4587-B6CF-590DC8BEE687} = {3E1A9FB8-4096-4C24-8839-A9A83E437711}
 		{B34D9E45-77D2-49F8-9336-B729BF0A7A24} = {3E1A9FB8-4096-4C24-8839-A9A83E437711}
+		{AE744E32-F26C-485F-97C2-09AE838EBB7E} = {3E1A9FB8-4096-4C24-8839-A9A83E437711}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C15D5D5A-B1FB-4C85-954D-9F6A8F3D52F7}

@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>trace demos</title>
+    <link href="lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-xs-6">&nbsp;</div>
+            <div class="col-xs-6">
+                OpName..........<input type="text" id="opName" />
+                <br />
+                ParentSpanId...<input type="text" id="parentSpanId" />
+                <br />
+                <input type="button" id="start" value="start" />
+                <br />
+                <input type="button" id="log" value="log" />
+                <br />
+                <input type="button" id="finish" value="finish" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">&nbsp;</div>
+            <div class="col-xs-6">
+                <ul id="messagesList"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="lib/@aspnet/signalr/dist/browser/signalr.js"></script>
+    <script src="scripts/clientTracer.js"></script>
+<script>
+
+    var opNameElem = document.getElementById("opName");
+    var parentSpanIdElem = document.getElementById("parentSpanId");
+    var startElem = document.getElementById("start");
+    var logElem = document.getElementById("log");
+    var finishElem = document.getElementById("finish");
+    var messagesListElem = document.getElementById("messagesList");
+
+    function safeHtml(message) {
+        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return msg;
+    }
+
+    function removeChild(elem) {
+        while (elem.hasChildNodes()) {
+            elem.removeChild(elem.childNodes[0]);
+        }
+    }
+    
+    var currentSpanId = null;
+    function updateMessageList(result) {
+        console.log("update message list with");
+        console.log(result);
+
+        if (result.success) {
+            currentSpanId = result.spanId;
+        } else {
+            currentSpanId = null;
+        }
+
+        var encodedMsg = safeHtml(result.message);
+        var li = document.createElement("li");
+        li.textContent = encodedMsg;
+        messagesListElem.appendChild(li);
+    }
+    
+    var initConfig = {
+        startSpanCallback: updateMessageList,
+        logCallback: updateMessageList,
+        setTagsCallback: updateMessageList,
+        finishSpanCallback: updateMessageList,
+        connectionStarted: function () {
+
+
+            startElem.addEventListener("click", function (event) {
+                var opName = opNameElem.value;
+                var parentSpanId = parentSpanIdElem.value;
+                if (!opName) {
+                    alert("bad args!");
+                    return;
+                }
+                clientTracer.startSpan({ opName: opName, parentSpanId: parentSpanId });
+                event.preventDefault();
+            });
+
+            logElem.addEventListener("click", function (event) {
+                var opName = opNameElem.value;
+                var parentSpanId = parentSpanIdElem.value;
+                if (!opName) {
+                    alert("bad args!");
+                    return;
+                }
+
+                if (!currentSpanId) {
+                    alert("bad currentSpanId!");
+                    return;
+                }
+
+                clientTracer.log({ spanId: currentSpanId, opName: opName, parentSpanId: parentSpanId, logs: { "demo-log" : "demo log for " + opName } });
+                event.preventDefault();
+            });
+
+            finishElem.addEventListener("click", function (event) {
+                var opName = opNameElem.value;
+                var parentSpanId = parentSpanIdElem.value;
+                if (!opName) {
+                    alert("bad args!");
+                    return;
+                }
+                if (!currentSpanId) {
+                    alert("bad currentSpanId!");
+                    return;
+                }
+
+                clientTracer.finishSpan({ spanId: currentSpanId,  opName: opName, parentSpanId: parentSpanId });
+                event.preventDefault();
+            });
+        },
+        connectionError: function (err) {
+            console.log("init fail with err: ");
+            console.log(err);
+        }
+    };
+
+    var clientTracer = document["clientTracer"];
+    console.log(clientTracer);
+
+    clientTracer.init(initConfig);
+</script>
+</body>
+</html>
