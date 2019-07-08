@@ -36,6 +36,7 @@
             this.cbxCount = new System.Windows.Forms.ComboBox();
             this.cbxSeconds = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnCall2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -117,11 +118,23 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "CallEverySecond";
             // 
+            // btnCall2
+            // 
+            this.btnCall2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCall2.Location = new System.Drawing.Point(497, 162);
+            this.btnCall2.Name = "btnCall2";
+            this.btnCall2.Size = new System.Drawing.Size(75, 23);
+            this.btnCall2.TabIndex = 15;
+            this.btnCall2.Text = "Call2";
+            this.btnCall2.UseVisualStyleBackColor = true;
+            this.btnCall2.Click += new System.EventHandler(this.btnCall2_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 223);
+            this.Controls.Add(this.btnCall2);
             this.Controls.Add(this.cbxSeconds);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cbxCount);
@@ -148,5 +161,6 @@
         private System.Windows.Forms.ComboBox cbxCount;
         private System.Windows.Forms.ComboBox cbxSeconds;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCall2;
     }
 }

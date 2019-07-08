@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using EzTrace.Common;
+using EzTrace.DemoApp.FooDemo;
 using Jaeger;
 using OpenTracing;
 
@@ -15,6 +16,11 @@ namespace EzTrace.DemoApp.Helpers
         {
             _tracer = tracer;
             MockOpMilliseconds = 100;
+        }
+
+        public FooApi CreateFooApi()
+        {
+           return new FooApi(new FooService(new FooData(_tracer), _tracer), _tracer);
         }
 
         public void InvokeOp(string opName, int callDeep, params string[] nestedOps)

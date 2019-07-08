@@ -88,6 +88,15 @@ namespace EzTrace.DemoApp
             this.btnCall.Enabled = true;
             this.txtOps.Enabled = true;
         }
+
+        private void btnCall2_Click(object sender, EventArgs e)
+        {
+            var demoHelper = JaegerFactory.CreateDemoHelper();
+            var fooApi = demoHelper.CreateFooApi();
+            var userInfo = fooApi.GetUserInfo("admin");
+            this.txtLogs.AppendText($"\r\n-----get '{userInfo}' at {DateTime.Now}-----\r\n");
+            this.txtLogs.AppendText(Environment.NewLine);
+        }
     }
 
 }
