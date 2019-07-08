@@ -6,7 +6,7 @@
         string SpanId { get; set; }
         string ParentSpanId { get; set; }
     }
-    public static class IClientSpanLocateExtensions
+    public static class ClientSpanLocateExtensions
     {
         public static string ToLocateKey(this IClientSpanLocate locate)
         {
