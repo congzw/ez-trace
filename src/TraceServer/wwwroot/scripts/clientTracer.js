@@ -2,10 +2,10 @@
     "use strict";
 
     var clientTracer = {};
-    var method_startSpan = "startSpan";
-    var method_log = "log";
-    var method_setTags = "setTags";
-    var method_finishSpan = "finishSpan";
+    var method_startSpan = "StartSpan";
+    var method_log = "Log";
+    var method_setTags = "SetTags";
+    var method_finishSpan = "FinishSpan";
     var methods = [method_startSpan, method_log, method_setTags, method_finishSpan];
 
     var connection = new signalR.HubConnectionBuilder().withUrl("/Hubs/TraceHub").build();

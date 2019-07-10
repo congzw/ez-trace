@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +14,7 @@ namespace TraceServer
         {
             services.AddSignalR();
             services.AddSingleton<IClientTracerFactory, ClientTracerFactory>();
+            services.AddScoped<IClientTracerBridge, ClientTracerBridge>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

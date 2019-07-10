@@ -82,7 +82,7 @@
                     alert("bad args!");
                     return;
                 }
-                clientTracer.startSpan({ opName: opName, parentSpanId: parentSpanId });
+                clientTracer.StartSpan({ opName: opName, parentSpanId: parentSpanId });
                 event.preventDefault();
             });
 
@@ -99,7 +99,7 @@
                     return;
                 }
 
-                clientTracer.log({ spanId: currentSpanId, opName: opName, parentSpanId: parentSpanId, logs: { "demo-log" : "demo log for " + opName } });
+                clientTracer.Log({ spanId: currentSpanId, opName: opName, parentSpanId: parentSpanId, logs: { "demo-log" : "demo log for " + opName } });
                 event.preventDefault();
             });
 
@@ -115,7 +115,7 @@
                     return;
                 }
 
-                clientTracer.finishSpan({ spanId: currentSpanId,  opName: opName, parentSpanId: parentSpanId });
+                clientTracer.FinishSpan({ spanId: currentSpanId,  opName: opName, parentSpanId: parentSpanId });
                 event.preventDefault();
             });
         },

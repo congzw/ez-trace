@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TraceServer.Domain.Traces
+﻿namespace TraceServer.Domain.Traces
 {
     public class TraceCallbackResult : IClientSpanLocate
     {
@@ -15,6 +9,13 @@ namespace TraceServer.Domain.Traces
         public string TraceId { get; set; }
         public string SpanId { get; set; }
         public string ParentSpanId { get; set; }
+        
+        public static TraceCallbackResult MethodResult(string method, bool success, object data = null)
+        {
+            var traceCallbackResult = new TraceCallbackResult() { Message = method + (success ? "Success" : "Fail"), Success = success, Data = data };
+            traceCallbackResult.AutoSet(data as IClientSpanLocate);
+            return traceCallbackResult;
+        }
 
         public static TraceCallbackResult SuccessResult(string message, object data = null)
         {
